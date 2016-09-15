@@ -1,0 +1,187 @@
+<!-- <section class="background colourful"></section> -->
+
+<section class="container">
+	<section class="manager">
+   
+    <!-- Flash alert will be automatically dismissed after 5000 milli-secs.-->
+		<flash-message duration="5000"></flash-message>
+
+		<div id="toolbar">
+      <span id="upload" class="btn btn-success btn-file">
+        <i class="glyphicon glyphicon-cloud-upload"></i>
+        <span>Upload</span>
+        <input type="file" id="files" name="files[]" multiple>
+      </span>
+      <!-- for adding folder -->
+      <!-- <button id="new-folder" class="btn btn-primary">
+        <i class="glyphicon glyphicon-plus-sign"></i>
+        New Folder
+      </button> -->
+      <button id="email" class="btn btn-warning selected" role="button" data-toggle="modal" data-target="#myModal" disabled>
+        <i class="glyphicon glyphicon-envelope"></i>
+        Email
+      </button>
+      <span id="tagInput" class="selected" disabled>
+        <input id="newTag" type="text" placeholder="tag1, tag2, etc" title="seperate tags by comma or a space" disabled>
+        <button id="save-tags" class="btn btn-sm btn-success selected" title="save" disabled>
+          <i class="glyphicon glyphicon-ok"></i>
+        </button>
+        <button id="cancel-tags" class="btn btn-sm btn-danger selected" title="close" disabled>
+          <i class="glyphicon glyphicon-remove"></i>
+        </button>
+      </span>
+      <button id="add-tags" class="btn btn-primary">
+        <i class="glyphicon glyphicon-plus"></i>
+        Tags
+      </button>
+      <div class="btn-group">
+	      <button id="download-group" type="button" class="btn btn-primary dropdown-toggle selected" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled>
+	        <i class="glyphicon glyphicon-cloud-download"></i>
+	        Download
+	        <span class="caret"></span>
+	      </button>
+	      <ul class="dropdown-menu">
+	      	<li>
+	      		<a href="#" id="download">
+	      			Download
+	      		</a>
+	      	</li>
+	      	<li>
+	      		<a href="#" id="re-order" data-toggle="modal" data-target="#reOrderModal">
+	      			Convert to PDF
+	      		</a>
+	      	</li>
+	      </ul>
+	    </div>
+      <button id="delete" class="btn btn-danger selected" disabled>
+        <i class="glyphicon glyphicon-trash"></i>
+        Delete
+      </button>
+    </div>
+
+   <table id="table" 
+   				data-toolbar="#toolbar"
+          data-id-field="_id"
+   				data-unique-id="_id"
+   				data-sort-name="title"
+   				data-sort-order="asc"
+					data-striped="true"
+					data-search="true"
+					data-trim-on-search="false"
+					data-show-columns="true"
+          data-smart-display="true"
+					data-buttons-align="left"
+					data-search-align="left"
+					data-toolbar-align="right"
+          data-height="500">
+    <thead>
+    <tr>
+      <th data-field="state" data-checkbox="true"></th>
+      <th data-field="_id" data-visible="false" data-switchable="false"></th>
+      <!-- displays folder/file icon -->
+      <!-- <th data-field="type_image" data-sortable="false"></th> -->
+      <th data-field="title" data-class="file-name" data-sortable="false">Name</th>
+      <th data-field="date_str" data-sortable="false" data-width="20%">Date</th>
+      <th data-field="tags_str" data-class="tags">Tags</th>
+      <th data-field="size" data-sortable="false">Size</th>
+      <!-- save for possible use later -->
+      <!-- <th data-field="type" data-sortable="false">Type</th> -->
+      <th data-field="actions" data-class="actions" data-switchable="false"></th>
+    </tr>
+    </thead>
+	</table>
+   
+
+	</section>
+</section>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="poweredBy">Powered By <span>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Email Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"></button>
+				<h4 class="modal-title">Compose Email</h4>
+				<div class="input-group">
+					<input id="emailField" type="text" class="form-control" placeholder="john.doe@example.com, jen@example.com" aria-describedby="basic-addon2" ng-model="emailField">
+					<span class="input-group-addon" id="basic-addon2"></span>
+				</div>
+				<br>
+				<div class="input-group">
+					<input id="emailSubject" type="text" class="form-control" placeholder="Subject" aria-describedby="basic-addon2" ng-model="emailSubject">
+					<span class="input-group-addon" id="basic-addon2"></span>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="comment">Message:</label>
+					<textarea id="emailDescription" class="form-control" rows="5" id="comment" ng-model="emailDescription"></textarea>
+				</div>
+				<!--working on clear field function on CLose-->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" ng-model="requiredField">Close</button>
+					<button id="send-email" type="button" class="btn btn-primary" data-dismiss="modal" ng-click="sendEmail(); reset(); deselectAllFiles()">Send</button>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!-- Preview Modal -->
+<div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="previewModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ReOrder Modal -->
+<div class="modal fade" id="reOrderModal" tabindex="-1" role="dialog" aria-labelledby="reOrderModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="reOrderModalLabel">Drag and Drop in the desired order</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="pdf-pg list-group pull-left"></ul>
+        <ul class="re-arrange list-group col-sm-10 col-xs-11 col-md-11 col-xl-11"></ul>
+        <form class="new_title" name="new_title" novalidate >
+		      <input id="new-pdf-name" class="col-sm-4 col-xs-4 col-md-4 col-xl-4" type="text" placeholder=" name your file" />
+		      <br>
+		      <br>
+		      <div class="pulling">
+						<input type="button" class="btn btn-default" value="Close" data-dismiss="modal" />
+						<input id="pdf-convert" type="button" class="btn btn-primary" value="Send" />
+					</div>
+		    </form>
+      </div>
+      <div class="modal-footer">
+			</div>
+    </div>
+  </div>
+</div>
+
+
+
+
